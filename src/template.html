@@ -1,0 +1,1309 @@
+<title>Narrow Year</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* A cut stump, read from the outside in: sapwood cream, heartwood brown, the
+     rust of a starved ring, and the sea-green of a year that had everything. */
+  --paper:#faf6ef; --panel:#fffdfa; --panel2:#f2e9dc; --sunk:#ece0cf;
+  --ink:#241a12; --ink2:#6d5844; --ink3:#9c8874; --rule:#ded0bc; --rule2:#efe6d9;
+  --ember:#b03418; --ember2:#d2582c; --sap:#1f6f6a; --sap2:#38928b;
+  --gold:#b8860f; --gold2:#dcae3e;
+  --early:#e8d2ac; --late:#8a5f36; --pith:#6b4526;
+  --shadow:0 1px 2px rgba(36,26,18,.05),0 10px 30px rgba(36,26,18,.08);
+  --grid:rgba(36,26,18,.09);
+  --disp:"Fraunces",Georgia,serif;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"IBM Plex Sans Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+:root:not([data-theme="light"]){ color-scheme:light dark; }
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    /* the same stump under a work lamp */
+    --paper:#14100b; --panel:#1e1811; --panel2:#2a2118; --sunk:#0e0b07;
+    --ink:#f0e5d5; --ink2:#b3a08a; --ink3:#7d6d5c; --rule:#3a2f24; --rule2:#241d15;
+    --ember:#ff7a4f; --ember2:#ff9a76; --sap:#4fc0b6; --sap2:#7ad6cd;
+    --gold:#e0b040; --gold2:#f0c866;
+    --early:#c2a67c; --late:#6b452a; --pith:#4a2f1c;
+    --shadow:0 1px 2px rgba(0,0,0,.6),0 12px 34px rgba(0,0,0,.5);
+    --grid:rgba(240,229,213,.10);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#14100b; --panel:#1e1811; --panel2:#2a2118; --sunk:#0e0b07;
+  --ink:#f0e5d5; --ink2:#b3a08a; --ink3:#7d6d5c; --rule:#3a2f24; --rule2:#241d15;
+  --ember:#ff7a4f; --ember2:#ff9a76; --sap:#4fc0b6; --sap2:#7ad6cd;
+  --gold:#e0b040; --gold2:#f0c866;
+  --early:#c2a67c; --late:#6b452a; --pith:#4a2f1c;
+  --shadow:0 1px 2px rgba(0,0,0,.6),0 12px 34px rgba(0,0,0,.5);
+  --grid:rgba(240,229,213,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-weight:400}
+a{color:var(--ember);text-underline-offset:2px}
+button,select,input{font-family:inherit;font-size:inherit;color:inherit}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(14px,2.4vw,44px)}
+
+/* ---------- masthead ---------- */
+header.mast{padding:clamp(28px,4.4vw,64px) 0 24px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--ink3)}
+h1.title{font-family:var(--disp);font-weight:900;font-size:clamp(56px,11.5vw,168px);
+  line-height:.82;letter-spacing:-.028em;margin:22px 0 0}
+h1.title em{font-style:italic;font-weight:400;color:var(--ember)}
+.standfirst{margin:26px 0 0;max-width:68ch;font-family:var(--serif);
+  font-size:clamp(16.5px,1.2vw,20px);line-height:1.6;color:var(--ink2)}
+.standfirst strong{color:var(--ink);font-weight:500}
+.mastgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+@media(max-width:860px){.mastgrid{grid-template-columns:1fr}}
+.mastnums{display:flex;gap:24px;flex-wrap:wrap}
+.mn{min-width:88px}
+.mn b{display:block;font-family:var(--disp);font-weight:600;font-size:clamp(26px,2.5vw,38px);
+  line-height:1;letter-spacing:-.02em}
+.mn span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+/* ---------- sections ---------- */
+section{padding:clamp(38px,5vw,76px) 0;border-bottom:1px solid var(--rule)}
+.sechead{display:flex;gap:16px;align-items:baseline;margin-bottom:8px}
+.secnum{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ember)}
+h2{font-family:var(--disp);font-weight:600;font-size:clamp(30px,3.6vw,52px);
+  line-height:1.02;letter-spacing:-.022em}
+.deck{margin:16px 0 0;max-width:74ch;font-family:var(--serif);font-size:17px;
+  line-height:1.62;color:var(--ink2)}
+.deck strong{color:var(--ink);font-weight:500}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow)}
+.pad{padding:clamp(14px,1.6vw,22px)}
+.lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink3)}
+.note{font-family:var(--serif);font-size:14.5px;line-height:1.58;color:var(--ink2);max-width:74ch}
+.figcap{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink3);
+  margin-top:10px;line-height:1.5}
+canvas{display:block;width:100%;touch-action:none}
+.ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select,input[type=search]{background:var(--panel);border:1px solid var(--rule);border-radius:2px;
+  padding:6px 8px;font-size:13.5px;max-width:100%}
+input[type=range]{accent-color:var(--ember)}
+button.pill{background:var(--panel);border:1px solid var(--rule);border-radius:99px;
+  padding:5px 13px;font-size:12.5px;cursor:pointer;transition:.13s}
+button.pill:hover{border-color:var(--ink3)}
+button.pill[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--rule);border-radius:3px;
+  padding:1px 5px;color:var(--ink3)}
+</style>
+<style>
+/* ---------- the ring ---------- */
+.ringgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,2vw,30px);
+  align-items:start;margin-top:28px}
+@media(max-width:1000px){.ringgrid{grid-template-columns:1fr}}
+.discwrap{position:relative;background:var(--sunk);border:1px solid var(--rule);border-radius:3px;
+  overflow:hidden}
+.corewrap{background:var(--sunk);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(94px,1fr));gap:2px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:3px;margin-top:12px;overflow:hidden}
+.ro{background:var(--panel);padding:10px 12px}
+.ro b{display:block;font-family:var(--disp);font-weight:600;font-size:23px;line-height:1.05;
+  letter-spacing:-.015em}
+.ro b.em{color:var(--ember)} .ro b.sp{color:var(--sap)}
+.ro span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);margin-top:6px}
+.sitepick{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.sitemeta{font-family:var(--mono);font-size:11.5px;color:var(--ink3);line-height:1.7;margin-top:10px}
+.sitemeta b{color:var(--ink2);font-weight:500}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="mastgrid">
+    <div>
+      <div class="eyebrow">Quick Projects &middot; dendrochronology</div>
+      <h1 class="title">Narrow<br><em>Year</em></h1>
+      <p class="standfirst">A tree ring is a date. Trees standing hundreds of miles apart put down the
+      same pattern of fat and starved years, and that shared pattern is what lets a piece of wood be
+      dated to the calendar year it stopped growing. This takes <strong>2,474 site chronologies</strong>
+      from the International Tree-Ring Data Bank, draws them, and asks the obvious question: in which
+      years did the world's trees all have a bad time at once &mdash; and were those the years the
+      history books would predict? <strong>Mostly not.</strong> Across the 42 largest eruptions with a
+      date somebody wrote down at the time, the share of sites going narrow lifts by 1.3 points, from
+      8.9% to 10.1%. Even 1816, the year without a summer, is <em>below</em> average narrow worldwide.
+      The reason turns out to be a fact about the archive rather than about trees: half the bank stands
+      in western North America, which in 1816 was having one of its best growing seasons on record.</p>
+    </div>
+    <div class="mastnums">
+      <div class="mn"><b class="mono">2,474</b><span>site chronologies</span></div>
+      <div class="mn"><b class="mono">973,881</b><span>site-years</span></div>
+      <div class="mn"><b class="mono">925&ndash;2006</b><span>composite window</span></div>
+      <div class="mn"><b class="mono">45</b><span>eruptions tested</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 1. THE RING ================= -->
+<section id="sec-ring">
+  <div class="sechead"><span class="secnum">01</span><h2>One tree, ring by ring</h2></div>
+  <p class="deck">Every ring is one growing season, and its width is that season written down. This is a
+  real chronology drawn at its real proportions &mdash; the disc shows the whole life of the site, the
+  strip below it is the same wood under a hand lens. Drag either one. The dark band at the outer edge of
+  each ring is latewood, laid down as the season closes; it is the line your eye actually counts.</p>
+
+  <div class="ringgrid">
+    <div>
+      <div class="discwrap"><canvas id="disc" height="760"></canvas></div>
+      <div class="figcap">Whole chronology as a cross-section, pith at the centre. Ring widths are the
+      site's standardised index, so a ring wider than its neighbours is a better-than-average season for
+      that site rather than a bigger tree.</div>
+    </div>
+    <div>
+      <div class="sitepick">
+        <select id="siteSel" aria-label="Chronology"></select>
+        <button class="pill" id="randSite">another</button>
+      </div>
+      <div class="sitemeta" id="siteMeta"></div>
+
+      <div class="corewrap" style="margin-top:14px"><canvas id="core" height="230"></canvas></div>
+      <div class="ctl" style="margin-top:10px">
+        <span class="lab">window</span>
+        <input type="range" id="coreSpan" min="20" max="400" value="120" style="flex:1;min-width:120px">
+        <span class="mono" id="coreSpanTxt" style="font-size:12px;color:var(--ink3)"></span>
+      </div>
+      <input type="range" id="coreAt" min="0" max="100" value="50" style="width:100%;margin-top:8px">
+
+      <div class="readout">
+        <div class="ro"><b class="mono" id="roYear">&mdash;</b><span>year</span></div>
+        <div class="ro"><b class="mono" id="roIdx">&mdash;</b><span>ring index</span></div>
+        <div class="ro"><b class="mono" id="roPtr">&mdash;</b><span>pointer value</span></div>
+        <div class="ro"><b class="mono" id="roDep">&mdash;</b><span>cores</span></div>
+      </div>
+      <div class="figcap" id="ringHint">Pointer value is the ring measured in standard deviations
+      against its own thirteen-year neighbourhood; below &minus;1.28 the year is counted narrow.</div>
+
+      <div class="panel pad" style="margin-top:16px">
+        <div class="lab">this chronology's worst years</div>
+        <table class="tbl" style="margin-top:9px"><thead><tr>
+          <th>Year</th><th style="text-align:right">Index</th>
+          <th style="text-align:right">Pointer</th><th style="text-align:right">Cores</th>
+          <th style="text-align:right">World that year</th></tr></thead>
+          <tbody id="siteWorst"></tbody></table>
+        <div class="figcap" style="margin-top:9px">The right-hand column is the share of all sites
+        worldwide that went narrow in the same year &mdash; the test of whether this tree was having a
+        private disaster or a shared one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+/* ---------- crossdate ---------- */
+.xgrid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:clamp(16px,2vw,28px);
+  align-items:start;margin-top:28px}
+@media(max-width:1000px){.xgrid{grid-template-columns:1fr}}
+.xstage{background:var(--sunk);border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+  cursor:grab}
+.xstage.drag{cursor:grabbing}
+.lockmsg{font-family:var(--disp);font-weight:600;font-size:19px;letter-spacing:-.01em;margin-top:4px}
+.lockmsg.hit{color:var(--sap)} .lockmsg.miss{color:var(--ember)}
+/* ---------- composite ---------- */
+.compwrap{background:var(--panel);border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+  margin-top:26px}
+.mapwrap{background:var(--sunk);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.yearbar{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px}
+.yearbig{font-family:var(--disp);font-weight:900;font-size:clamp(38px,5vw,68px);line-height:.9;
+  letter-spacing:-.03em}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(16px,2vw,28px);
+  align-items:start;margin-top:24px}
+@media(max-width:1000px){.mapgrid{grid-template-columns:1fr}}
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+table.tbl th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink3);font-weight:400;padding:0 8px 8px 0;
+  border-bottom:1px solid var(--rule)}
+table.tbl td{padding:7px 8px 7px 0;border-bottom:1px solid var(--rule2);vertical-align:baseline}
+table.tbl td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+tr.pick{cursor:pointer} tr.pick:hover{background:var(--panel2)}
+.sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:baseline}
+/* ---------- groups ---------- */
+.gsmall{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:24px}
+.gcard{background:var(--panel);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.gcard h4{font-family:var(--disp);font-weight:600;font-size:16px;letter-spacing:-.01em;
+  padding:12px 14px 0}
+.gcard .sub{font-family:var(--mono);font-size:10.5px;color:var(--ink3);padding:4px 14px 8px}
+</style>
+
+<!-- ================= 2. CROSSDATE ================= -->
+<section id="sec-x">
+  <div class="sechead"><span class="secnum">02</span><h2>Why a ring is a date</h2></div>
+  <p class="deck">Counting rings inwards from the bark only works if no ring is missing and none is
+  false, and in a hard year a tree may lay down no ring at all. So dating is done by matching, not
+  counting: you slide an undated sequence against a dated one until the pattern of narrow years locks.
+  Below are two real chronologies as skeleton plots &mdash; a spike for every year the site went
+  unusually narrow. <strong>Drag the lower one</strong> and watch the correlation find its own answer.</p>
+
+  <div class="xgrid">
+    <div>
+      <div class="xstage" id="xstage"><canvas id="xcan" height="330"></canvas></div>
+      <div class="figcap">Upper: the reference, fixed. Lower: the floating sequence, offset by
+      <span class="mono" id="xoffTxt">0</span> years. Correlation is computed on the overlapping years
+      only, and only where both sites have at least five cores.</div>
+    </div>
+    <div>
+      <div class="panel pad">
+        <div class="lab">correlation by offset</div>
+        <canvas id="xcorr" height="150" style="margin-top:8px"></canvas>
+        <div class="lockmsg" id="xlock">&mdash;</div>
+        <div class="note" style="font-size:13.5px;margin-top:8px" id="xnote"></div>
+        <div class="ctl" style="margin-top:14px">
+          <button class="pill" id="xsnap">snap to best</button>
+          <button class="pill" id="xshuffle">new pair</button>
+        </div>
+      </div>
+      <div class="note" style="margin-top:14px">The spike is the whole method. Away from the true
+      offset the two records are unrelated noise; at the offset that matches calendar to calendar they
+      agree, because both trees lived through the same weather. That is how a beam in a roof, or a
+      violin, gets a felling date.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. THE COMPOSITE ================= -->
+<section id="sec-comp">
+  <div class="sechead"><span class="secnum">03</span><h2>The years the world went narrow</h2></div>
+  <p class="deck">Pool every chronology and count, for each year, the share of sites that put down an
+  unusually narrow ring. Above the line is that share; below it, mirrored, is the share that went
+  unusually <em>wide</em> &mdash; the same arithmetic with the sign flipped, carried as a control. A
+  spike that appears only above the line is a shock. One that appears in both is thin replication
+  playing tricks, which is why the pale band behind shows how many sites were available at all.
+  <strong>Gold ticks mark the eruptions</strong>: every volcano of VEI 5 or greater whose date comes
+  from someone writing it down at the time.</p>
+
+  <div class="compwrap"><canvas id="comp" height="330"></canvas></div>
+  <div class="ctl" style="margin-top:12px">
+    <span class="lab">from</span>
+    <input type="range" id="compFrom" min="925" max="1900" value="925" style="flex:1;min-width:140px">
+    <span class="mono" id="compRange" style="font-size:12px;color:var(--ink3)"></span>
+    <button class="pill" id="compErup" aria-pressed="true">eruptions</button>
+    <button class="pill" id="compWide" aria-pressed="true">wide control</button>
+  </div>
+  <div class="figcap">Click any year to open it on the map below. Hover for the counts behind the share.</div>
+</section>
+
+<!-- ================= 4. ONE YEAR, EVERYWHERE ================= -->
+<section id="sec-map">
+  <div class="sechead"><span class="secnum">04</span><h2>One year, everywhere</h2></div>
+  <p class="deck">Each dot is a site that was alive and measured in the chosen year, coloured by how
+  that year's ring compared with its own neighbourhood. This is where the global average stops being
+  a number and starts being a map &mdash; and where you can see that a bad year is almost never bad
+  everywhere.</p>
+
+  <div class="yearbar">
+    <div class="yearbig mono" id="mapYear">1258</div>
+    <div style="flex:1;min-width:200px">
+      <div class="note" id="mapBlurb"></div>
+      <div class="chips" id="yearChips"></div>
+    </div>
+  </div>
+
+  <div class="mapgrid">
+    <div>
+      <div class="mapwrap"><canvas id="map" height="560"></canvas></div>
+      <div class="figcap"><span class="sw" style="background:var(--ember)"></span>narrow
+        <span class="sw" style="background:var(--sap);margin-left:12px"></span>wide
+        <span class="sw" style="background:var(--ink3);margin-left:12px"></span>ordinary &mdash;
+        equirectangular; land outline from Natural Earth 110m.</div>
+    </div>
+    <div>
+      <div class="panel pad">
+        <div class="lab">the twenty narrowest years on record</div>
+        <table class="tbl" style="margin-top:10px"><thead><tr>
+          <th>Year</th><th style="text-align:right">Narrow</th><th style="text-align:right">Wide</th>
+          <th style="text-align:right">Sites</th></tr></thead>
+          <tbody id="topTbl"></tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= 5. THE SPLIT ================= -->
+<section id="sec-split">
+  <div class="sechead"><span class="secnum">05</span><h2>Half the archive is in one place</h2></div>
+  <p class="deck">The flat global answer is not a fact about trees. It is a fact about where the trees
+  were collected. <strong>1,167 of the 2,474 sites &mdash; a little under half &mdash; stand in western
+  North America</strong>, so a &ldquo;world&rdquo; composite is largely a western North American one
+  wearing a bigger name. Cut the same data by region and the years stop cancelling. Note especially
+  what happens to the year without a summer: it appears, sharply, in the one region where the histories
+  say it happened, and is buried by the region that happened to have a wonderful year.</p>
+
+  <div class="gsmall" id="groupCards"></div>
+
+  <div class="panel pad" style="margin-top:26px">
+    <div class="lab">two years, by region &mdash; share of sites narrow, and wide</div>
+    <div id="twoyear" style="margin-top:14px"></div>
+    <div class="note" style="margin-top:16px" id="twoyearNote"></div>
+  </div>
+</section>
+
+<!-- ================= 6. METHOD ================= -->
+<section id="sec-method" style="border-bottom:none">
+  <div class="sechead"><span class="secnum">06</span><h2>How this was made, and what it cannot tell you</h2></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(18px,2.4vw,40px);margin-top:22px">
+    <div>
+      <h3 style="font-family:var(--disp);font-weight:600;font-size:19px">The measure</h3>
+      <p class="note" style="margin-top:8px">Each site chronology is already standardised: the tree's
+      own age trend has been divided out, leaving an index whose average year is 1000. That still drifts
+      on decadal scales, so an absolute threshold would flag whole stretches of a cool century rather
+      than single shock years. Every ring is therefore rescaled against its own thirteen-year
+      neighbourhood &mdash; the pointer-year, or Cropper, transform &mdash; giving a value in standard
+      deviations. At or below &minus;1.28, the tenth percentile of a normal distribution, the year is
+      counted narrow for that site; at or above +1.28 it is counted wide.</p>
+      <p class="note" style="margin-top:10px">A site-year needs at least five contributing cores to
+      count, and a year is only reported when at least fifty sites are available. Both numbers are shown
+      throughout rather than hidden, because the honest limit on this page is replication, not method.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--disp);font-weight:600;font-size:19px">What the control is for</h3>
+      <p class="note" style="margin-top:8px">The wide-year share runs through the identical pipeline
+      with one sign changed. Anything that inflates the narrow count by accident &mdash; a thin year
+      with few sites, an artefact of the window, a bug &mdash; should inflate both. Across the whole
+      record the two sit at 8.9% and 8.5%, almost exactly the 10% each threshold implies, which is the
+      main evidence that the arithmetic is doing what it claims. When a year reaches 30% narrow against
+      2% wide, that asymmetry is the finding.</p>
+      <p class="note" style="margin-top:10px">The eruption test uses only dates established by
+      contemporary written record, from the Smithsonian catalogue. Ice-core volcanic chronologies were
+      themselves synchronised against tree-ring marker years, so testing tree rings against them would
+      be partly circular. Documentary dates are independent of both.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--disp);font-weight:600;font-size:19px">Limits worth stating</h3>
+      <p class="note" style="margin-top:8px">The bank is not a sample of the world's trees. It is
+      overwhelmingly Northern Hemisphere, heavily western North American and European, and collected
+      mostly in the 1980s and 1990s &mdash; which is why replication collapses after about 1990 and the
+      most recent decades on this page rest on a couple of hundred sites, not two thousand. Any
+      apparent trend at the right-hand edge is a collecting artefact until proven otherwise.</p>
+      <p class="note" style="margin-top:10px">Site chronologies were built by hundreds of different
+      investigators using different standardisation choices. Pooling them assumes those choices do not
+      bias the sign of a single-year departure. That is a reasonable assumption and not a tested one.</p>
+      <p class="note" style="margin-top:10px">And a narrow ring is not a thermometer. It records that
+      a growing season was poor for that tree, which may mean cold, or drought, or an insect year, or a
+      fire, or a neighbour falling over.</p>
+    </div>
+  </div>
+
+  <div class="panel pad" style="margin-top:28px">
+    <div class="lab">sources</div>
+    <table class="tbl" style="margin-top:10px">
+      <tbody>
+        <tr><td><b>International Tree-Ring Data Bank</b> &mdash; site chronologies, NOAA
+          Paleoclimatology<br><span class="mono" style="font-size:11px;color:var(--ink3)">ncei.noaa.gov/pub/data/paleo/treering/chronologies/</span></td>
+          <td class="num">public domain</td></tr>
+        <tr><td><b>NOAA Paleoclimatology study metadata</b> &mdash; site coordinates and species<br>
+          <span class="mono" style="font-size:11px;color:var(--ink3)">ncei.noaa.gov/access/paleo-search/</span></td>
+          <td class="num">public domain</td></tr>
+        <tr><td><b>Global Volcanism Program</b>, Smithsonian Institution &mdash; Holocene eruptions<br>
+          <span class="mono" style="font-size:11px;color:var(--ink3)">volcano.si.edu</span></td>
+          <td class="num">cited, not redistributed in bulk</td></tr>
+        <tr><td><b>Natural Earth</b> 110m land outline<br>
+          <span class="mono" style="font-size:11px;color:var(--ink3)">naturalearthdata.com</span></td>
+          <td class="num">public domain</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+<script>
+"use strict";
+const DATA = __PAYLOAD__;
+
+/* ---------- decode ---------- */
+function b64(str, Type){
+  const bin = atob(str), n = bin.length, u8 = new Uint8Array(n);
+  for(let i=0;i<n;i++) u8[i] = bin.charCodeAt(i);
+  return new Type(u8.buffer, 0, n / Type.BYTES_PER_ELEMENT);
+}
+const S = {
+  code: DATA.sites.code, name: DATA.sites.name,
+  species: DATA.sites.species, region: DATA.sites.region,
+  lat: b64(DATA.sites.lat, Float32Array), lon: b64(DATA.sites.lon, Float32Array),
+  elev: b64(DATA.sites.elev, Int16Array), group: b64(DATA.sites.group, Uint8Array),
+  y0: b64(DATA.sites.y0, Int16Array), off: b64(DATA.sites.off, Uint32Array),
+  len: b64(DATA.sites.len, Uint16Array)
+};
+const VAL = b64(DATA.values, Int16Array);
+const DEP = b64(DATA.depths, Uint8Array);
+const NS = S.code.length;
+const COAST = b64(DATA.coast, Int16Array), COASTLEN = b64(DATA.coast_len, Uint16Array);
+const M = DATA.method, COMP = DATA.composite;
+const GORDER = DATA.group_order;
+/* the worldwide composite, defined here rather than beside the chart that draws
+   it: the ring section reads it too, and it must exist before that block runs */
+const C = COMP.all;
+const CI = new Map(); C.years.forEach((y,i)=>CI.set(y,i));
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- pointer values (Cropper), computed once for every site-year ----------
+   (x_t - mean of the 13-year window) / sd of that window.  Stored NaN where the
+   window is too sparse or the year is carried by fewer than five cores, so the
+   page never shows a value the composite would not have counted.              */
+const HALF = (M.window - 1) >> 1, MINV = 11;
+const PTR = new Float32Array(VAL.length).fill(NaN);
+(function computePointers(){
+  for(let s=0; s<NS; s++){
+    const o = S.off[s], L = S.len[s];
+    for(let i=0;i<L;i++){
+      const v = VAL[o+i];
+      if(v <= 0 || DEP[o+i] < M.min_depth) continue;
+      let n=0, sum=0;
+      const a = Math.max(0, i-HALF), b = Math.min(L-1, i+HALF);
+      for(let j=a;j<=b;j++){ const w = VAL[o+j]; if(w > 0){ n++; sum += w; } }
+      if(n < MINV) continue;
+      const mean = sum/n;
+      /* Two-pass variance, deliberately.  The one-pass form (sum2 - n*mean^2)
+         subtracts two numbers of order n*10^6 to leave one of order n*10^4, and
+         the precision it loses is enough to move a ring sitting near the -1.28
+         threshold across it.  Against the Python that built the composite, the
+         one-pass version disagreed on 32 of 155 sampled years. */
+      let ss=0;
+      for(let j=a;j<=b;j++){ const w = VAL[o+j]; if(w > 0){ const d = w-mean; ss += d*d; } }
+      const varr = ss/(n-1);
+      if(!(varr > 0)) continue;
+      PTR[o+i] = (v - mean)/Math.sqrt(varr);
+    }
+  }
+})();
+
+/* ---------- small helpers ---------- */
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt = n => n.toLocaleString("en-US");
+const pct = x => (100*x).toFixed(1)+"%";
+function yearIndex(s, year){
+  const i = year - S.y0[s];
+  return (i>=0 && i<S.len[s]) ? i : -1;
+}
+function ptrAt(s, year){
+  const i = yearIndex(s, year);
+  return i < 0 ? NaN : PTR[S.off[s]+i];
+}
+function fitCanvas(cv, cssH){
+  const dpr = Math.min(2.5, devicePixelRatio||1);
+  const w = cv.clientWidth || cv.parentNode.clientWidth;
+  const h = cssH || cv.clientHeight;
+  cv.width = Math.max(1, Math.round(w*dpr));
+  cv.height = Math.max(1, Math.round(h*dpr));
+  cv.style.height = h+"px";
+  const g = cv.getContext("2d");
+  g.setTransform(dpr,0,0,dpr,0,0);
+  return {g, w, h};
+}
+/* deterministic shuffle so the page looks the same on every load */
+function rng(seed){ let x = seed>>>0; return () => ((x = (x*1664525+1013904223)>>>0) / 4294967296); }
+
+/* ---------- ring colour ----------
+   Earlywood is the pale, fast, spring cells; latewood the dense dark band that
+   closes the season.  Both are darkened as the ring narrows, which is what the
+   eye actually reads on a polished core.                                     */
+function ringColours(idx){
+  const t = Math.max(0, Math.min(1.6, idx/1000));         // 1.0 = average year
+  const early = cssv("--early"), late = cssv("--late");
+  const lift = 0.55 + 0.45*Math.min(1, t);
+  return {early: shade(early, lift), late: shade(late, 0.75+0.25*Math.min(1,t))};
+}
+function shade(hex, k){
+  const c = hex.replace("#","");
+  const r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches
+    || document.documentElement.getAttribute("data-theme")==="dark";
+  const f = dark ? k : (1 - (1-k)*0.85);
+  return `rgb(${Math.round(r*f)},${Math.round(g*f)},${Math.round(b*f)})`;
+}
+</script>
+<script>
+"use strict";
+/* ================= 1. THE RING ================= */
+const discCv = document.getElementById("disc"), coreCv = document.getElementById("core");
+const siteSel = document.getElementById("siteSel"), siteMeta = document.getElementById("siteMeta");
+let cur = 0, curYear = null, coreSpan = 120, coreAt = null, discGeom = null;
+
+/* series of the current site, gaps dropped */
+function seriesOf(s){
+  const o = S.off[s], L = S.len[s], y0 = S.y0[s], out = [];
+  for(let i=0;i<L;i++){
+    const v = VAL[o+i];
+    if(v > 0) out.push({y: y0+i, v: v, d: DEP[o+i], p: PTR[o+i]});
+  }
+  return out;
+}
+let SER = [];
+
+function mix(a, b, t){
+  const pa = a.match(/\d+/g).map(Number), pb = b.match(/\d+/g).map(Number);
+  return `rgb(${Math.round(pa[0]+(pb[0]-pa[0])*t)},${Math.round(pa[1]+(pb[1]-pa[1])*t)},${Math.round(pa[2]+(pb[2]-pa[2])*t)})`;
+}
+function toRGB(hex){
+  const c = hex.replace("#","");
+  return `rgb(${parseInt(c.substr(0,2),16)},${parseInt(c.substr(2,2),16)},${parseInt(c.substr(4,2),16)})`;
+}
+function woodOf(r){
+  const t = Math.max(0.25, Math.min(1.55, r.v/1000));
+  let early = shade(cssv("--early"), 0.62+0.38*Math.min(1,t));
+  let late  = shade(cssv("--late"),  0.72+0.28*Math.min(1,t));
+  if(r.p <= -M.threshold){ const e = toRGB(cssv("--ember"));
+    early = mix(early, e, .44); late = mix(late, e, .34); }
+  else if(r.p >= M.threshold){ const s = toRGB(cssv("--sap"));
+    early = mix(early, s, .13); late = mix(late, s, .09); }
+  return {early, late};
+}
+
+function drawDisc(){
+  const box = discCv.parentNode.getBoundingClientRect();
+  const H = Math.max(420, Math.min(760, box.width));
+  const {g, w, h} = fitCanvas(discCv, H);
+  g.clearRect(0,0,w,h);
+  if(!SER.length) return;
+  const cx = w/2, cy = h/2, R = Math.min(w,h)/2 - 30;
+  const tot = SER.reduce((a,r)=>a+r.v, 0);
+  const radii = new Float64Array(SER.length+1);
+  const r0 = R*0.035;                      // a pith, not a point
+  let acc = r0;
+  radii[0] = acc;
+  for(let i=0;i<SER.length;i++){ acc += (R-r0)*SER[i].v/tot; radii[i+1] = acc; }
+  discGeom = {cx, cy, radii};
+
+  g.save(); g.translate(cx, cy);
+  for(let i=0;i<SER.length;i++){
+    const ri = radii[i], ro = radii[i+1], dr = ro-ri;
+    const col = woodOf(SER[i]);
+    g.beginPath(); g.arc(0,0,(ri+ro)/2,0,Math.PI*2);
+    g.lineWidth = Math.max(dr, 0.4); g.strokeStyle = col.early; g.stroke();
+    if(dr > 1.6){                          // latewood band, only when it can be seen
+      g.beginPath(); g.arc(0,0,ro-dr*0.16,0,Math.PI*2);
+      g.lineWidth = dr*0.32; g.strokeStyle = col.late; g.stroke();
+    }
+  }
+  /* pith */
+  g.beginPath(); g.arc(0,0,r0,0,Math.PI*2);
+  g.fillStyle = shade(cssv("--pith"), 1); g.fill();
+  /* bark */
+  g.beginPath(); g.arc(0,0,radii[SER.length]+2.5,0,Math.PI*2);
+  g.lineWidth = 5; g.strokeStyle = shade(cssv("--pith"), .8); g.stroke();
+  g.restore();
+
+  /* century marks up the vertical */
+  g.save(); g.translate(cx, cy);
+  g.font = "500 10px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.textAlign = "center"; g.textBaseline = "middle";
+  for(let i=0;i<SER.length;i++){
+    if(SER[i].y % 100) continue;
+    const r = (radii[i]+radii[i+1])/2;
+    g.beginPath(); g.moveTo(-3.5, -r); g.lineTo(3.5, -r);
+    g.strokeStyle = cssv("--ink3"); g.lineWidth = 1; g.stroke();
+  }
+  g.restore();
+
+  if(curYear != null){
+    const k = SER.findIndex(r=>r.y===curYear);
+    if(k >= 0){
+      const r = (radii[k]+radii[k+1])/2;
+      g.save(); g.translate(cx, cy);
+      g.beginPath(); g.arc(0,0,r,0,Math.PI*2);
+      g.lineWidth = Math.max(1.6, radii[k+1]-radii[k]);
+      g.strokeStyle = cssv("--ink"); g.globalAlpha = .85; g.stroke(); g.globalAlpha = 1;
+      g.beginPath(); g.moveTo(0,0); g.lineTo(0,-radii[SER.length]);
+      g.strokeStyle = cssv("--ink"); g.lineWidth = .8; g.setLineDash([2,4]); g.stroke();
+      g.setLineDash([]);
+      g.restore();
+    }
+  }
+}
+
+function drawCore(){
+  const {g, w, h} = fitCanvas(coreCv, 230);
+  g.clearRect(0,0,w,h);
+  if(!SER.length) return;
+  const n = SER.length;
+  let mid = SER.findIndex(r=>r.y===coreAt);
+  if(mid < 0) mid = Math.floor(n/2);
+  const half = Math.floor(coreSpan/2);
+  let a = Math.max(0, mid-half), b = Math.min(n, a+coreSpan);
+  a = Math.max(0, b-coreSpan);
+  const win = SER.slice(a,b);
+  const tot = win.reduce((s,r)=>s+r.v, 0);
+  const top = 16, bot = h-30, hh = bot-top;
+  let x = 0;
+  const xs = [];
+  for(const r of win){
+    const dw = w*r.v/tot;
+    const col = woodOf(r);
+    const grd = g.createLinearGradient(x,0,x+dw,0);
+    grd.addColorStop(0, col.early); grd.addColorStop(0.62, col.early);
+    grd.addColorStop(1, col.late);
+    g.fillStyle = grd; g.fillRect(x, top, dw+0.6, hh);
+    if(dw > 2.4){ g.fillStyle = col.late; g.fillRect(x+dw-Math.min(2.2,dw*0.22), top, Math.min(2.2,dw*0.22), hh); }
+    xs.push({x, dw, r});
+    x += dw;
+  }
+  coreCv._xs = xs; coreCv._win = win;
+  /* decade ticks */
+  g.font = "500 10px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.textAlign = "center"; g.textBaseline = "top"; g.fillStyle = cssv("--ink3");
+  const every = coreSpan > 220 ? 50 : coreSpan > 90 ? 20 : 10;
+  for(const q of xs){
+    if(q.r.y % every) continue;
+    g.strokeStyle = cssv("--ink3"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(q.x+q.dw/2, bot); g.lineTo(q.x+q.dw/2, bot+5); g.stroke();
+    g.fillText(String(q.r.y), q.x+q.dw/2, bot+8);
+  }
+  if(curYear != null){
+    const q = xs.find(t=>t.r.y===curYear);
+    if(q){
+      g.strokeStyle = cssv("--ink"); g.lineWidth = 1.6;
+      g.strokeRect(q.x-0.5, top-4, q.dw+1, hh+8);
+    }
+  }
+}
+
+function setYear(y){
+  curYear = y;
+  const r = SER.find(t=>t.y===y);
+  document.getElementById("roYear").textContent = y==null ? "—" : (y<0 ? (-y)+" BCE" : y);
+  document.getElementById("roIdx").textContent  = r ? r.v : "—";
+  const pe = document.getElementById("roPtr");
+  pe.textContent = r && isFinite(r.p) ? (r.p>0?"+":"")+r.p.toFixed(2) : "—";
+  pe.className = "mono " + (r && r.p <= -M.threshold ? "em" : r && r.p >= M.threshold ? "sp" : "");
+  document.getElementById("roDep").textContent = r ? r.d : "—";
+  drawDisc(); drawCore();
+}
+
+function loadSite(s){
+  cur = s; SER = seriesOf(s);
+  const y0 = SER.length ? SER[0].y : 0, y1 = SER.length ? SER[SER.length-1].y : 0;
+  const sp = S.species[s], common = DATA.common_names[sp] || "";
+  const el = S.elev[s];
+  siteMeta.innerHTML =
+    `<b>${S.name[s]}</b> &nbsp;·&nbsp; ${S.region[s]||"—"}<br>` +
+    `${sp||"—"}${common?" · "+common:""} &nbsp;·&nbsp; ${S.lat[s].toFixed(2)}°, ${S.lon[s].toFixed(2)}°` +
+    `${el>0?" · "+fmt(el)+" m":""}<br>` +
+    `${SER.length} rings, ${y0<0?(-y0)+" BCE":y0}–${y1} &nbsp;·&nbsp; ITRDB ${S.code[s]}`;
+  coreAt = SER.length ? SER[Math.floor(SER.length/2)].y : null;
+  document.getElementById("coreAt").max = Math.max(0, SER.length-1);
+  document.getElementById("coreAt").value = Math.floor(SER.length/2);
+  worstYears();
+  setYear(coreAt);
+}
+
+/* The ten hardest years this particular tree had, set against what the rest of
+   the world's trees were doing in the same year. */
+function worstYears(){
+  const rows = SER.filter(r=>isFinite(r.p)).sort((a,b)=>a.p-b.p).slice(0,10);
+  const body = document.getElementById("siteWorst");
+  if(!body) return;
+  body.innerHTML = rows.map(r=>{
+    const i = CI.has(r.y) ? CI.get(r.y) : -1;
+    const world = i >= 0 ? pct(C.frac[i]) : "&mdash;";
+    const hot = i >= 0 && C.frac[i] >= 0.2;
+    return `<tr class="pick" data-y="${r.y}">
+      <td class="mono">${r.y < 0 ? (-r.y)+" BCE" : r.y}</td>
+      <td class="num" style="color:var(--ink3)">${r.v}</td>
+      <td class="num" style="color:var(--ember)">${r.p.toFixed(2)}</td>
+      <td class="num" style="color:var(--ink3)">${r.d}</td>
+      <td class="num" style="color:${hot ? "var(--ember)" : "var(--ink3)"}">${world}</td></tr>`;
+  }).join("");
+  body.onclick = ev => {
+    const tr = ev.target.closest("tr[data-y]");
+    if(!tr) return;
+    const y = +tr.dataset.y;
+    const k = SER.findIndex(t=>t.y===y);
+    if(k >= 0){ coreAt = y; document.getElementById("coreAt").value = k; }
+    setYear(y);
+  };
+}
+</script>
+<script>
+"use strict";
+/* ---- section 1 wiring ---- */
+(function(){
+  const opts = [];
+  for(let s=0;s<NS;s++){
+    const y0=S.y0[s], y1=y0+S.len[s]-1;
+    opts.push(`<option value="${s}">${S.code[s].toUpperCase()} — ${S.name[s]} (${y0<0?(-y0)+" BCE":y0}–${y1}, ${S.len[s]} yr)</option>`);
+  }
+  siteSel.innerHTML = opts.join("");
+  const want = S.code.indexOf("ca534");
+  const start = want >= 0 ? want : 0;
+  siteSel.value = start; loadSite(start);
+
+  siteSel.addEventListener("change", ()=>loadSite(+siteSel.value));
+  const pickRnd = rng(20260908);
+  document.getElementById("randSite").addEventListener("click", ()=>{
+    let s; let guard=0;
+    do { s = Math.floor(pickRnd()*NS); } while(S.len[s] < 200 && guard++ < 200);
+    siteSel.value = s; loadSite(s);
+  });
+
+  const spanEl = document.getElementById("coreSpan"), atEl = document.getElementById("coreAt");
+  const spanTxt = document.getElementById("coreSpanTxt");
+  function syncSpan(){ coreSpan = +spanEl.value; spanTxt.textContent = coreSpan+" yr"; drawCore(); }
+  spanEl.addEventListener("input", syncSpan); syncSpan();
+  atEl.addEventListener("input", ()=>{
+    const i = Math.max(0, Math.min(SER.length-1, +atEl.value));
+    coreAt = SER[i] ? SER[i].y : null; drawCore();
+  });
+
+  /* hover the disc: radius -> ring */
+  function discPick(ev){
+    if(!discGeom || !SER.length) return;
+    const rect = discCv.getBoundingClientRect();
+    const px = ev.clientX-rect.left-discGeom.cx, py = ev.clientY-rect.top-discGeom.cy;
+    const d = Math.hypot(px, py), rad = discGeom.radii;
+    if(d < rad[0] || d > rad[SER.length]) return;
+    let lo=0, hi=SER.length-1;
+    while(lo<hi){ const m=(lo+hi)>>1; if(rad[m+1] < d) lo=m+1; else hi=m; }
+    setYear(SER[lo].y);
+    coreAt = SER[lo].y; atEl.value = lo; drawCore();
+  }
+  discCv.addEventListener("pointermove", discPick);
+  discCv.addEventListener("pointerdown", discPick);
+
+  coreCv.addEventListener("pointermove", ev=>{
+    const xs = coreCv._xs; if(!xs) return;
+    const rect = coreCv.getBoundingClientRect(), x = ev.clientX-rect.left;
+    for(const q of xs){ if(x >= q.x && x < q.x+q.dw){ setYear(q.r.y); return; } }
+  });
+
+  addEventListener("resize", ()=>{ drawDisc(); drawCore(); });
+})();
+
+/* ================= 2. CROSSDATE ================= */
+const xCv = document.getElementById("xcan"), xCorr = document.getElementById("xcorr");
+let xA = 0, xB = 0, xOff = 0, xTrue = 0, xCurve = null, xBest = 0;
+
+function skeleton(s){
+  const o = S.off[s], L = S.len[s], y0 = S.y0[s], m = new Map();
+  for(let i=0;i<L;i++){ const p = PTR[o+i]; if(isFinite(p)) m.set(y0+i, p); }
+  return m;
+}
+function corrAt(A, B, off){
+  /* Pearson r between the two pointer series with B shifted by `off` years. */
+  let n=0, sa=0, sb=0, saa=0, sbb=0, sab=0;
+  for(const [y,a] of A){
+    const b = B.get(y-off);
+    if(b === undefined) continue;
+    n++; sa+=a; sb+=b; saa+=a*a; sbb+=b*b; sab+=a*b;
+  }
+  if(n < 40) return {r: NaN, n};
+  const num = sab - sa*sb/n;
+  const den = Math.sqrt((saa - sa*sa/n)*(sbb - sb*sb/n));
+  return {r: den>0 ? num/den : NaN, n};
+}
+function pickPair(seed){
+  /* two long, well-replicated chronologies from the same region that overlap */
+  const r = rng(seed), cand = [];
+  for(let s=0;s<NS;s++) if(S.len[s] >= 320) cand.push(s);
+  for(let tries=0; tries<400; tries++){
+    const a = cand[Math.floor(r()*cand.length)];
+    const near = cand.filter(b => b!==a
+      && Math.abs(S.lat[b]-S.lat[a]) < 6 && Math.abs(S.lon[b]-S.lon[a]) < 9);
+    if(!near.length) continue;
+    const b = near[Math.floor(r()*near.length)];
+    const A = skeleton(a), B = skeleton(b);
+    const {r: rr, n} = corrAt(A, B, 0);
+    if(n >= 150 && isFinite(rr) && rr > 0.32) return [a, b];
+  }
+  return [cand[0], cand[1]];
+}
+</script>
+<script>
+"use strict";
+function drawX(){
+  const {g, w, h} = fitCanvas(xCv, 330);
+  g.clearRect(0,0,w,h);
+  const A = skeleton(xA), B = skeleton(xB);
+  const yA0 = S.y0[xA], yA1 = yA0+S.len[xA]-1;
+  const yB0 = S.y0[xB]+xOff, yB1 = yB0+S.len[xB]-1;
+  const lo = Math.min(yA0, yB0), hi = Math.max(yA1, yB1);
+  const pad = 14, W = w-pad*2;
+  const sx = y => pad + (y-lo)/(hi-lo||1)*W;
+  const rowH = (h-46)/2, topA = 16, topB = 16+rowH+14;
+
+  function row(map, top, shift, label){
+    const base = top + rowH*0.5;
+    g.strokeStyle = cssv("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(pad, base); g.lineTo(w-pad, base); g.stroke();
+    for(const [y,p] of map){
+      const yy = y+shift;
+      if(yy < lo || yy > hi) continue;
+      const x = sx(yy);
+      if(p <= -M.threshold){
+        const mag = Math.min(1, (-p-M.threshold)/2.2+0.25);
+        g.strokeStyle = cssv("--ember"); g.lineWidth = 1.15;
+        g.beginPath(); g.moveTo(x, base); g.lineTo(x, base + mag*rowH*0.46); g.stroke();
+      } else if(p >= M.threshold){
+        const mag = Math.min(1, (p-M.threshold)/2.2+0.2);
+        g.strokeStyle = cssv("--sap"); g.globalAlpha = .55; g.lineWidth = 1;
+        g.beginPath(); g.moveTo(x, base); g.lineTo(x, base - mag*rowH*0.4); g.stroke();
+        g.globalAlpha = 1;
+      }
+    }
+    g.font = "500 10.5px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+    g.fillStyle = cssv("--ink3"); g.textAlign = "left"; g.textBaseline = "top";
+    g.fillText(label, pad, top-2);
+  }
+  row(A, topA, 0, S.code[xA].toUpperCase()+" · "+S.name[xA].slice(0,38)+"  (reference)");
+  row(B, topB, xOff, S.code[xB].toUpperCase()+" · "+S.name[xB].slice(0,38)+"  (floating)");
+
+  /* year axis */
+  g.font = "500 10px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.fillStyle = cssv("--ink3"); g.textAlign = "center"; g.textBaseline = "bottom";
+  const step = Math.max(20, Math.round((hi-lo)/8/50)*50);
+  for(let y = Math.ceil(lo/step)*step; y <= hi; y += step){
+    g.fillText(String(y), sx(y), h-4);
+  }
+  document.getElementById("xoffTxt").textContent = (xOff>0?"+":"")+xOff;
+}
+
+function drawCorr(){
+  const {g, w, h} = fitCanvas(xCorr, 150);
+  g.clearRect(0,0,w,h);
+  if(!xCurve) return;
+  const pad = 6, W = w-pad*2, H = h-22;
+  const mx = Math.max(...xCurve.map(d=>Math.abs(d.r)||0), 0.2);
+  const sx = o => pad + (o+60)/120*W;
+  const sy = r => 12 + H*(1 - (r+mx)/(2*mx));
+  g.strokeStyle = cssv("--rule"); g.lineWidth = 1;
+  g.beginPath(); g.moveTo(pad, sy(0)); g.lineTo(w-pad, sy(0)); g.stroke();
+  g.beginPath();
+  xCurve.forEach((d,i)=>{ if(!isFinite(d.r)) return;
+    const X = sx(d.off), Y = sy(d.r); i?g.lineTo(X,Y):g.moveTo(X,Y); });
+  g.strokeStyle = cssv("--ink2"); g.lineWidth = 1.2; g.stroke();
+  /* the true offset */
+  const at = xCurve.find(d=>d.off===0);
+  if(at && isFinite(at.r)){
+    g.beginPath(); g.arc(sx(0), sy(at.r), 3.6, 0, Math.PI*2);
+    g.fillStyle = cssv("--sap"); g.fill();
+  }
+  /* where the user is */
+  const now = xCurve.find(d=>d.off===xOff);
+  if(now && isFinite(now.r)){
+    g.beginPath(); g.moveTo(sx(xOff), 8); g.lineTo(sx(xOff), h-14);
+    g.strokeStyle = cssv("--ember"); g.lineWidth = 1.2; g.stroke();
+  }
+  g.font = "500 9.5px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.fillStyle = cssv("--ink3"); g.textAlign = "center"; g.textBaseline = "bottom";
+  [-60,-30,0,30,60].forEach(o=>g.fillText((o>0?"+":"")+o, sx(o), h-2));
+}
+
+function xUpdate(){
+  const A = skeleton(xA), B = skeleton(xB);
+  const now = corrAt(A, B, xOff);
+  const el = document.getElementById("xlock"), note = document.getElementById("xnote");
+  const truth = corrAt(A, B, 0);
+  if(!isFinite(now.r)){
+    el.textContent = "not enough overlap"; el.className = "lockmsg";
+    note.textContent = "Slide back towards zero — fewer than forty years line up here.";
+  } else {
+    el.textContent = "r = " + now.r.toFixed(3) + (xOff===0 ? "  · locked" : "");
+    el.className = "lockmsg " + (xOff===0 ? "hit" : Math.abs(now.r) < truth.r*0.5 ? "miss" : "");
+    note.textContent = xOff===0
+      ? `At the true offset the two sites agree across ${now.n} shared years. Every other alignment is worse, and that is what dates the wood.`
+      : `Offset ${xOff>0?"+":""}${xOff} years: r falls to ${now.r.toFixed(3)} against ${truth.r.toFixed(3)} at the true alignment, on ${now.n} overlapping years.`;
+  }
+  drawX(); drawCorr();
+}
+
+function xLoadPair(seed){
+  [xA, xB] = pickPair(seed);
+  const A = skeleton(xA), B = skeleton(xB);
+  xCurve = [];
+  for(let o=-60;o<=60;o++) xCurve.push({off:o, r: corrAt(A,B,o).r});
+  xBest = xCurve.reduce((a,b)=> (isFinite(b.r) && (!isFinite(a.r) || b.r > a.r)) ? b : a, {r:NaN,off:0}).off;
+  xOff = 0; xUpdate();
+  /* start it deliberately wrong so there is something to solve */
+  xOff = 17; xUpdate();
+}
+
+(function(){
+  const stage = document.getElementById("xstage");
+  let dragging = false, startX = 0, startOff = 0;
+  const perYear = () => {
+    const yA0 = S.y0[xA], span = Math.max(S.len[xA], S.len[xB]) + Math.abs(xOff) + 120;
+    return (xCv.clientWidth-28)/span;
+  };
+  stage.addEventListener("pointerdown", e=>{
+    dragging = true; startX = e.clientX; startOff = xOff;
+    stage.classList.add("drag"); stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener("pointermove", e=>{
+    if(!dragging) return;
+    const dy = Math.round((e.clientX-startX)/Math.max(0.6, perYear()));
+    const nx = Math.max(-60, Math.min(60, startOff+dy));
+    if(nx !== xOff){ xOff = nx; xUpdate(); }
+  });
+  const stop = e=>{ dragging = false; stage.classList.remove("drag"); };
+  stage.addEventListener("pointerup", stop);
+  stage.addEventListener("pointercancel", stop);
+
+  document.getElementById("xsnap").addEventListener("click", ()=>{
+    if(REDUCED){ xOff = 0; xUpdate(); return; }
+    const from = xOff, t0 = performance.now(), dur = 620;
+    (function step(t){
+      const k = Math.min(1, (t-t0)/dur), e = 1-Math.pow(1-k, 3);
+      xOff = Math.round(from*(1-e));
+      xUpdate();
+      if(k < 1) requestAnimationFrame(step);
+    })(t0);
+  });
+  let seed = 7;
+  document.getElementById("xshuffle").addEventListener("click", ()=>xLoadPair(seed+=101));
+  xLoadPair(seed);
+  addEventListener("resize", ()=>{ drawX(); drawCorr(); });
+})();
+</script>
+<script>
+"use strict";
+/* ================= 3. THE COMPOSITE ================= */
+const compCv = document.getElementById("comp");
+let compFrom = 925, showErup = true, showWide = true, mapYear = 1258;
+const ERUP = DATA.eruptions;
+
+function compGeom(w,h){
+  const padL = 38, padR = 12, top = 16, bot = h-56;
+  const mid = (top+bot)/2;
+  const y1 = C.years[C.years.length-1];
+  const sx = y => padL + (y-compFrom)/((y1-compFrom)||1)*(w-padL-padR);
+  const maxF = 0.45;
+  const sy = f => mid - f/maxF*(mid-top);
+  const syw = f => mid + f/maxF*(bot-mid);
+  return {padL,padR,top,bot,mid,y1,sx,sy,syw,maxF};
+}
+function drawComp(){
+  const {g,w,h} = fitCanvas(compCv, 330);
+  g.clearRect(0,0,w,h);
+  const G = compGeom(w,h);
+  const i0 = C.years.findIndex(y=>y>=compFrom);
+
+  /* How many sites were available at all.  Kept as its own shallow strip along
+     the floor rather than a full-height wash: as a wash it sat behind the bars
+     and read as a stain rather than as a second quantity. */
+  const maxAvail = Math.max(...C.avail);
+  const ribH = 26;
+  g.beginPath(); g.moveTo(G.sx(compFrom), h-22);
+  for(let i=i0;i<C.years.length;i++) g.lineTo(G.sx(C.years[i]), h-22 - C.avail[i]/maxAvail*ribH);
+  g.lineTo(G.sx(G.y1), h-22); g.closePath();
+  g.fillStyle = cssv("--panel2"); g.globalAlpha = .9; g.fill(); g.globalAlpha = 1;
+  g.font = "500 9px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.fillStyle = cssv("--ink3"); g.textAlign = "left"; g.textBaseline = "bottom";
+  g.fillText("sites available", G.padL+3, h-24-ribH);
+
+  /* zero line */
+  g.strokeStyle = cssv("--rule"); g.lineWidth = 1;
+  g.beginPath(); g.moveTo(G.padL, G.mid); g.lineTo(w-G.padR, G.mid); g.stroke();
+
+  /* gridlines */
+  g.font = "500 9.5px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.fillStyle = cssv("--ink3"); g.textAlign = "right"; g.textBaseline = "middle";
+  [0.1,0.2,0.3,0.4].forEach(f=>{
+    g.strokeStyle = cssv("--grid"); g.beginPath();
+    g.moveTo(G.padL, G.sy(f)); g.lineTo(w-G.padR, G.sy(f)); g.stroke();
+    g.fillText((f*100)+"%", G.padL-5, G.sy(f));
+    if(showWide){
+      g.strokeStyle = cssv("--grid"); g.beginPath();
+      g.moveTo(G.padL, G.syw(f)); g.lineTo(w-G.padR, G.syw(f)); g.stroke();
+    }
+  });
+
+  const bw = Math.max(0.6, (w-G.padL-G.padR)/(G.y1-compFrom+1));
+  for(let i=i0;i<C.years.length;i++){
+    const x = G.sx(C.years[i]);
+    g.fillStyle = cssv("--ember");
+    g.globalAlpha = C.frac[i] >= 0.25 ? 1 : .72;
+    g.fillRect(x-bw/2, G.sy(C.frac[i]), bw, G.mid-G.sy(C.frac[i]));
+    if(showWide){
+      g.fillStyle = cssv("--sap"); g.globalAlpha = .42;
+      g.fillRect(x-bw/2, G.mid, bw, G.syw(C.wfrac[i])-G.mid);
+    }
+  }
+  g.globalAlpha = 1;
+
+  /* eruptions */
+  if(showErup){
+    for(const e of ERUP){
+      if(e.year < compFrom || e.year > G.y1) continue;
+      const x = G.sx(e.year);
+      g.strokeStyle = cssv("--gold"); g.lineWidth = e.vei>=6 ? 1.6 : 1;
+      g.globalAlpha = e.vei>=6 ? .95 : .5;
+      g.beginPath(); g.moveTo(x, G.top-6); g.lineTo(x, G.top+ (e.vei>=6?9:5)); g.stroke();
+      g.globalAlpha = 1;
+    }
+  }
+
+  /* axis */
+  g.font = "500 10px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+  g.fillStyle = cssv("--ink3"); g.textAlign = "center"; g.textBaseline = "bottom";
+  const span = G.y1-compFrom;
+  const step = span > 800 ? 200 : span > 400 ? 100 : span > 160 ? 50 : 20;
+  for(let y=Math.ceil(compFrom/step)*step; y<=G.y1; y+=step) g.fillText(String(y), G.sx(y), h-4);
+
+  /* selection */
+  if(CI.has(mapYear) && mapYear >= compFrom){
+    const x = G.sx(mapYear);
+    g.strokeStyle = cssv("--ink"); g.lineWidth = 1; g.setLineDash([2,3]);
+    g.beginPath(); g.moveTo(x, G.top-8); g.lineTo(x, G.bot); g.stroke(); g.setLineDash([]);
+  }
+  compCv._G = G;
+  document.getElementById("compRange").textContent = compFrom+"–"+G.y1;
+}
+
+(function(){
+  const fromEl = document.getElementById("compFrom");
+  fromEl.addEventListener("input", ()=>{ compFrom = +fromEl.value; drawComp(); });
+  const tgl = (id, get, set)=>{
+    const b = document.getElementById(id);
+    b.addEventListener("click", ()=>{ set(!get()); b.setAttribute("aria-pressed", String(get())); drawComp(); });
+  };
+  tgl("compErup", ()=>showErup, v=>showErup=v);
+  tgl("compWide", ()=>showWide, v=>showWide=v);
+  function pick(ev){
+    const G = compCv._G; if(!G) return;
+    const rect = compCv.getBoundingClientRect();
+    const x = ev.clientX-rect.left;
+    const y = Math.round(compFrom + (x-G.padL)/(compCv.clientWidth-G.padL-G.padR)*(G.y1-compFrom));
+    if(CI.has(y)) setMapYear(y);
+  }
+  compCv.addEventListener("pointerdown", pick);
+  compCv.addEventListener("pointermove", ev=>{ if(ev.buttons) pick(ev); });
+  addEventListener("resize", drawComp);
+})();
+</script>
+<script>
+"use strict";
+/* ================= 4. ONE YEAR, EVERYWHERE ================= */
+const mapCv = document.getElementById("map");
+const LAT0 = -58, LAT1 = 84;
+
+function mapGeom(w,h){
+  const sx = lon => (lon+180)/360*w;
+  const sy = lat => (LAT1-lat)/(LAT1-LAT0)*h;
+  return {sx, sy};
+}
+function drawMap(){
+  const box = mapCv.parentNode.getBoundingClientRect();
+  const H = Math.max(320, Math.min(560, box.width*0.5));
+  const {g,w,h} = fitCanvas(mapCv, H);
+  g.clearRect(0,0,w,h);
+  const G = mapGeom(w,h);
+
+  /* graticule */
+  g.strokeStyle = cssv("--grid"); g.lineWidth = 1;
+  for(let lat=-40; lat<=80; lat+=20){
+    g.beginPath(); g.moveTo(0, G.sy(lat)); g.lineTo(w, G.sy(lat)); g.stroke();
+  }
+  for(let lon=-180; lon<=180; lon+=30){
+    g.beginPath(); g.moveTo(G.sx(lon), 0); g.lineTo(G.sx(lon), h); g.stroke();
+  }
+  /* land.  Seven arcs in Natural Earth's 110m land cross the antimeridian, and
+     on an equirectangular projection a segment running from +179 to -179 is
+     drawn as a straight line back across the entire map -- which is where the
+     two long horizontal streaks over Siberia and the Pacific came from.  Lift
+     the pen instead of joining them. */
+  g.strokeStyle = cssv("--rule"); g.lineWidth = 1;
+  let p = 0;
+  for(const n of COASTLEN){
+    g.beginPath();
+    let prev = null;
+    for(let i=0;i<n;i++){
+      const lo = COAST[p++]/100, la = COAST[p++]/100;
+      const X = G.sx(lo), Y = G.sy(la);
+      if(prev === null || Math.abs(lo-prev) > 180) g.moveTo(X,Y); else g.lineTo(X,Y);
+      prev = lo;
+    }
+    g.stroke();
+  }
+
+  /* sites alive in the year */
+  const ember = cssv("--ember"), sap = cssv("--sap"), neut = cssv("--ink3");
+  let nN=0, nW=0, nT=0;
+  const pts = [];
+  for(let s=0;s<NS;s++){
+    const pv = ptrAt(s, mapYear);
+    if(!isFinite(pv)) continue;
+    nT++;
+    if(pv <= -M.threshold) nN++; else if(pv >= M.threshold) nW++;
+    pts.push({x: G.sx(S.lon[s]), y: G.sy(S.lat[s]), p: pv});
+  }
+  /* ordinary years first so the extremes sit on top */
+  pts.sort((a,b)=>Math.abs(a.p)-Math.abs(b.p));
+  for(const q of pts){
+    const ex = q.p <= -M.threshold, wd = q.p >= M.threshold;
+    g.beginPath();
+    g.arc(q.x, q.y, ex||wd ? 3.1 : 1.9, 0, Math.PI*2);
+    g.fillStyle = ex ? ember : wd ? sap : neut;
+    g.globalAlpha = ex ? .92 : wd ? .72 : .30;
+    g.fill();
+  }
+  g.globalAlpha = 1;
+  mapCv._counts = {nN, nW, nT};
+}
+
+function setMapYear(y){
+  mapYear = y;
+  document.getElementById("mapYear").textContent = y;
+  drawMap(); drawComp();
+  const i = CI.get(y);
+  const c = mapCv._counts || {nN:0,nW:0,nT:0};
+  const el = document.getElementById("mapBlurb");
+  if(i === undefined){ el.textContent = ""; }
+  else {
+    const rank = C.frac.map((f,k)=>[f,k]).sort((a,b)=>b[0]-a[0]).findIndex(t=>t[1]===i)+1;
+    el.innerHTML = `<strong>${pct(C.frac[i])}</strong> of ${fmt(C.avail[i])} available sites put down an
+      unusually narrow ring; <strong>${pct(C.wfrac[i])}</strong> went unusually wide.
+      That makes it the <strong>${rank}${ord(rank)}</strong> narrowest year of the
+      ${fmt(C.years.length)} the record can report.`;
+  }
+  const near = e => e.year >= y-3 && e.year <= y+1;
+  const chips = ERUP.filter(near).map(e=>({...e, doc:true}))
+    .concat((DATA.eruptions_other||[]).filter(near).map(e=>({...e, doc:false})));
+  document.getElementById("yearChips").innerHTML = chips.length
+    ? chips.map(e=>`<span class="pill" style="cursor:default;${e.doc?"":"opacity:.78"}">
+        <span class="sw" style="background:var(--gold);${e.doc?"":"opacity:.5"}"></span>${e.volcano} ${e.year}
+        · VEI ${e.vei} · <span style="color:var(--ink3)">${e.doc?"written record":dateHow(e.evidence)}</span></span>`).join("")
+    : `<span class="lab">no eruption of VEI 5 or more recorded in the four years to ${y}</span>`;
+}
+function dateHow(ev){
+  /* Say how the date was arrived at, because it decides whether the comparison
+     means anything.  A date taken from tree rings cannot be used to test tree
+     rings, and GVP has two of those. */
+  if(/Ice Core/i.test(ev)) return "ice-core dated";
+  if(/Dendro/i.test(ev)) return "dated BY tree rings";
+  if(/14C/i.test(ev)) return "radiocarbon, ±decades";
+  if(/Tephro/i.test(ev)) return "tephra correlation";
+  return ev.replace(/^[^:]*:\s*/, "").toLowerCase();
+}
+function ord(n){ const s=["th","st","nd","rd"], v=n%100; return s[(v-20)%10]||s[v]||s[0]; }
+
+(function(){
+  const rows = C.frac.map((f,i)=>({y:C.years[i], f, w:C.wfrac[i], a:C.avail[i]}))
+                     .sort((a,b)=>b.f-a.f).slice(0,20);
+  document.getElementById("topTbl").innerHTML = rows.map(r=>
+    `<tr class="pick" data-y="${r.y}"><td class="mono">${r.y}</td>
+     <td class="num" style="color:var(--ember)">${pct(r.f)}</td>
+     <td class="num" style="color:var(--sap)">${pct(r.w)}</td>
+     <td class="num" style="color:var(--ink3)">${r.a}</td></tr>`).join("");
+  document.getElementById("topTbl").addEventListener("click", ev=>{
+    const tr = ev.target.closest("tr[data-y]"); if(tr) setMapYear(+tr.dataset.y);
+  });
+  addEventListener("resize", drawMap);
+})();
+
+/* ================= 5. THE SPLIT ================= */
+(function(){
+  const host = document.getElementById("groupCards");
+  const labels = COMP.group_labels;
+  host.innerHTML = GORDER.map(k=>{
+    const gg = COMP.groups[k];
+    return `<div class="gcard"><h4>${labels[k]}</h4>
+      <div class="sub">${gg.n_sites} sites · ${gg.years.length} years reported</div>
+      <canvas class="gc" data-k="${k}" height="150"></canvas></div>`;
+  }).join("");
+
+  function drawGroup(cv){
+    const k = cv.dataset.k, gg = COMP.groups[k];
+    const {g,w,h} = fitCanvas(cv, 150);
+    g.clearRect(0,0,w,h);
+    const lo = 1000, hi = 2006;
+    const padL = 30, padR = 8, top = 10, bot = h-20, mid = (top+bot)/2;
+    const sx = y => padL + (y-lo)/(hi-lo)*(w-padL-padR);
+    const maxF = 0.5;
+    g.strokeStyle = cssv("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(padL, mid); g.lineTo(w-padR, mid); g.stroke();
+    const bw = Math.max(0.5, (w-padL-padR)/(hi-lo));
+    gg.years.forEach((y,i)=>{
+      if(y<lo||y>hi) return;
+      const x = sx(y);
+      g.fillStyle = cssv("--ember"); g.globalAlpha = .8;
+      g.fillRect(x-bw/2, mid-(gg.frac[i]/maxF)*(mid-top), bw, (gg.frac[i]/maxF)*(mid-top));
+      g.fillStyle = cssv("--sap"); g.globalAlpha = .45;
+      g.fillRect(x-bw/2, mid, bw, (gg.wfrac[i]/maxF)*(bot-mid));
+    });
+    g.globalAlpha = 1;
+    g.font = "500 9px "+cssv("--mono").split(",")[0].replace(/"/g,"");
+    g.fillStyle = cssv("--ink3"); g.textAlign = "right"; g.textBaseline = "middle";
+    g.fillText("50%", padL-4, top+2); g.fillText("0", padL-4, mid);
+    g.textAlign = "center"; g.textBaseline = "bottom";
+    for(let y=1200;y<=2000;y+=200) g.fillText(String(y), sx(y), h-3);
+    /* the two years the page argues about */
+    [[1258,"1258"],[1816,"1816"]].forEach(([yy,lab])=>{
+      const x = sx(yy);
+      g.strokeStyle = cssv("--ink"); g.lineWidth = .8; g.setLineDash([2,3]);
+      g.beginPath(); g.moveTo(x, top); g.lineTo(x, bot); g.stroke(); g.setLineDash([]);
+      g.fillStyle = cssv("--ink2"); g.textAlign = "center"; g.textBaseline = "top";
+      g.fillText(lab, x, top-1);
+    });
+  }
+  const draw = ()=>document.querySelectorAll("canvas.gc").forEach(drawGroup);
+  draw(); addEventListener("resize", draw);
+})();
+</script>
+<style>
+.tyrow{display:grid;grid-template-columns:190px repeat(2,minmax(0,1fr));gap:10px;align-items:center;
+  padding:7px 0;border-bottom:1px solid var(--rule2)}
+.tyrow.head{border-bottom:1px solid var(--rule);padding-bottom:9px}
+.tyrow .gl{font-size:13px;color:var(--ink2)}
+.tybar{position:relative;height:19px;background:var(--panel2);border-radius:2px;overflow:hidden}
+.tybar i{position:absolute;top:0;bottom:0;left:0;display:block}
+.tybar b{position:absolute;right:5px;top:0;line-height:19px;font-family:var(--mono);font-size:10.5px;
+  font-weight:500;color:var(--ink2)}
+@media(max-width:700px){.tyrow{grid-template-columns:1fr}}
+</style>
+<script>
+"use strict";
+(function(){
+  const YEARS = [1258, 1816];
+  const host = document.getElementById("twoyear");
+  const labels = COMP.group_labels;
+  const idxOf = (gg,y) => gg.years.indexOf(y);
+  let html = `<div class="tyrow head"><div class="lab">population</div>` +
+    YEARS.map(y=>`<div class="lab">${y}</div>`).join("") + `</div>`;
+  for(const k of GORDER){
+    const gg = COMP.groups[k];
+    html += `<div class="tyrow"><div class="gl">${labels[k]}<br>
+      <span class="mono" style="font-size:10.5px;color:var(--ink3)">${gg.n_sites} sites</span></div>`;
+    for(const y of YEARS){
+      const i = idxOf(gg, y);
+      if(i < 0){ html += `<div class="lab" style="opacity:.6">too few sites</div>`; continue; }
+      const f = gg.frac[i], wv = gg.wfrac[i];
+      html += `<div>
+        <div class="tybar"><i style="width:${Math.min(100,f*200)}%;background:var(--ember)"></i>
+          <b>${pct(f)} narrow</b></div>
+        <div class="tybar" style="margin-top:3px"><i style="width:${Math.min(100,wv*200)}%;background:var(--sap);opacity:.75"></i>
+          <b>${pct(wv)} wide</b></div>
+        <div class="mono" style="font-size:10px;color:var(--ink3);margin-top:3px">${gg.avail[i]} sites available</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  host.innerHTML = html;
+  document.getElementById("twoyearNote").innerHTML =
+    `Bars are scaled to 50%. <strong>1258</strong>, the year after the Samalas eruption &mdash; the
+     largest of the millennium &mdash; is unmistakable: 36.6% of western North American sites went
+     narrow against 2.4% wide. <strong>1816</strong> inverts, and the inversion is geographic.
+     Eastern North America, where the year without a summer earned its name, is the only region that
+     went narrow: <strong>13.9% narrow against 4.5% wide</strong>. Western North America, with three
+     times as many sites in the bank, recorded the opposite &mdash; <strong>1.4% narrow against 32.7%
+     wide</strong> &mdash; because the same circulation that froze New England arrived over the
+     interior west as cloud, rain and water left in the ground, which is the best thing that can
+     happen to a tree growing where water is what runs out first. Average the two and the year
+     disappears. That is the whole of the flat line in section 03.`;
+})();
+
+/* ================= init ================= */
+(function(){
+  drawComp();
+  setMapYear(1258);
+  /* redraw wood colours if the reader flips their system theme */
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  const redraw = ()=>{ drawDisc(); drawCore(); drawX(); drawCorr(); drawComp(); drawMap();
+    document.querySelectorAll("canvas.gc").forEach(c=>c.dispatchEvent(new Event("redraw"))); };
+  if(mq.addEventListener) mq.addEventListener("change", ()=>setTimeout(redraw, 40));
+})();
+</script>

@@ -1,0 +1,8 @@
+# The raw harvest: 8,293 ITRDB chronology files and the eight regional zips they
+# came out of (~40 MB), the NOAA and Smithsonian metadata pulls, and every
+# intermediate derived from them -- corpus, composite, per-site pointer values
+# and the packed payload, which together run to another ~50 MB. All of it is
+# refetched and rebuilt by the scripts in ../ -- see ../README.md and
+# ../../REBUILD.md. This file is the only thing here that is tracked.
+*
+!.gitignore
