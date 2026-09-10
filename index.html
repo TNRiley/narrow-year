@@ -141,7 +141,7 @@ button.pill[aria-pressed=true]{background:var(--ink);color:var(--paper);border-c
 <nav class="qp-crumb" aria-label="Breadcrumb">
   <a href="https://tnriley.github.io/quick-projects/">&larr;&nbsp;Quick Projects</a>
   <span class="qp-sep">/</span>
-  <span class="qp-here">Project</span>
+  <span class="qp-here">Narrow Year</span>
 </nav>
 <!-- /catalog-link -->
 <div class="wrap">
@@ -538,8 +538,12 @@ function ringColours(idx){
 function shade(hex, k){
   const c = hex.replace("#","");
   const r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
-  const dark = matchMedia("(prefers-color-scheme: dark)").matches
-    || document.documentElement.getAttribute("data-theme")==="dark";
+  /* An explicit data-theme wins over the system preference in both directions.
+     ORing the two makes data-theme="light" a no-op for anyone whose OS is dark,
+     so the CSS would flip to the light palette while the wood stayed dark. */
+  const attr = document.documentElement.getAttribute("data-theme");
+  const dark = attr ? attr === "dark"
+                    : matchMedia("(prefers-color-scheme: dark)").matches;
   const f = dark ? k : (1 - (1-k)*0.85);
   return `rgb(${Math.round(r*f)},${Math.round(g*f)},${Math.round(b*f)})`;
 }
